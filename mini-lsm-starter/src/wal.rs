@@ -16,11 +16,15 @@ pub struct Wal {
 
 impl Wal {
     pub fn create(_path: impl AsRef<Path>) -> Result<Self> {
-        unimplemented!()
+        Ok(Self {
+            file: Arc::new(Mutex::new(BufWriter::new(File::create(&_path)?))),
+        })
     }
 
     pub fn recover(_path: impl AsRef<Path>, _skiplist: &SkipMap<Bytes, Bytes>) -> Result<Self> {
-        unimplemented!()
+        Ok(Self {
+            file: Arc::new(Mutex::new(BufWriter::new(File::create(&_path)?))),
+        })
     }
 
     pub fn put(&self, _key: &[u8], _value: &[u8]) -> Result<()> {
